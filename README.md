@@ -138,7 +138,7 @@ Pada Gambar 6 dapat dilihat bahwa orang yang melakukan peminjaman kredit paling 
 
 ![image](https://github.com/agungbesti/German_Credit_Risk/assets/35904444/2656663d-b012-415b-ab12-75d6078e6221)
 ###### Gambar 7: Univariate Analysis pada variabel Age_category
-Pada Gambar 7 dapat dilihat bahwa orang yang melakukan peminjaman kredit diisi oleh kelompok anak dewasa akhir [depkes 2019](https://ejournal.unesa.ac.id/index.php/mathunesa/article/view/19398/17715) rentang usia 25-35 tahun. Hal ini menegaskan bahwa sebagian besar peminjam diisi oleh orang - orang yang **sudah dewasa**, sedangkan untuk orang lansia cenderung tidak ada keinginan untuk melakukan peminjaman.
+Pada Gambar 7 dapat dilihat bahwa orang yang melakukan peminjaman kredit diisi oleh kelompok anak dewasa akhir[4] rentang usia 25-35 tahun. Hal ini menegaskan bahwa sebagian besar peminjam diisi oleh orang - orang yang **sudah dewasa**, sedangkan untuk orang lansia cenderung tidak ada keinginan untuk melakukan peminjaman.
 
 ![image](https://github.com/agungbesti/German_Credit_Risk/assets/35904444/44fc117f-2582-4f14-90c2-7c45ea21798f)
 ###### Gambar 8: Univariate Analysis pada variabel Credit_category
@@ -270,6 +270,8 @@ Confusion matrix adalah sebuah tabel yang sering digunakan untuk mengukur kinerj
 
 Ada empat nilai yang dihasilkan di dalam tabel confusion matrix, di antaranya **True Positive** (TP), **False Positive** (FP), **False Negative** (FN), dan **True Negative** (TN). Ilustrasi tabel confusion matrix dapat dilihat pada Gambar berikut.
 ![image](https://github.com/agungbesti/German_Credit_Risk/assets/35904444/8a16a5f1-836a-48d8-b27b-1b1c7f45c249)
+
+
 **True Positive (TP)** : Jumlah data yang bernilai Positif dan diprediksi benar sebagai Positif.
 Jika kita telah mengklasifikasikan tingkat risiko baik, dan ternyata risikonya baik.
 
@@ -322,3 +324,10 @@ Alasannya, karena nilai akurasi yang dihasilkan oleh XGBoost lebih baik dari alg
 ---
 - Berdasarkan hasil training dan test, maka algoritma yang terbaik adalah XGBoost, alasannya karena nilai akurasi yang dihasilkan oleh XGBoost lebih baik dari algoritma yang lainnya.
 - Model yang dibangun sudah cukup baik dalam melakukan klasifikasi, alasannya karena nilai akurasi telah mencapai lebih dari 90%
+
+### Referensi
+---
+[1] [Transparent Decision Support System for Credit Risk Evaluation: An automated credit approval system](https://ieeexplore.ieee.org/document/9242905) 
+[2] [Credit Risk Assessment for Rural Credit Cooperatives based on Improved Neural Network](https://ieeexplore.ieee.org/document/8104372)
+[3] [Theoretical and Applied Aspects of Bank Credit Risks Minimization](https://ieeexplore.ieee.org/document/9468056)
+[4] [KLASIFIKASI KELOMPOK UMUR MANUSIA BERDASARKAN ANALISIS DIMENSIFRAKTAL BOX COUNTING DARI CITRA WAJAH DENGAN DETEKSI TEPI CANNY](https://ejournal.unesa.ac.id/index.php/mathunesa/article/view/19398/17715)
