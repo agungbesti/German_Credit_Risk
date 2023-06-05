@@ -197,7 +197,7 @@ Pada Gambar 20 dapat dilihat bahwa ketika orang yang mengambil kredit untuk tuju
 Pada Gambar 21 dapat dilihat bahwa **lebih banyak pria** mengambil pinjaman untuk mengambil mobil daripada perempuan. Sedangkan untuk pendidikan wanita dan pria hampir sama untuk jumlah orang yang melakukan peminjaman.
 
 ![image](https://github.com/agungbesti/German_Credit_Risk/assets/35904444/342f0e5c-c5f9-4a4c-8e54-acfc7ad1ca9e)
-###### Gambar 22: Confusion Matrix untuk Fitur Numerik
+###### Gambar 22: Correlation Matrix untuk Fitur Numerik
 Pada Gambar 22 dapat dilihat bahwa untuk setiap fitur memiliki korelasi positif dan korelasi negatif yang tidak terlalu tinggi, dimana fitur yang paling berpengaruh yaitu **Job, Duration dan Credit_amount**. Sedangkan pada **fitur Age, memiliki korelasi yang paling kecil diantara fitur yang lainnya**.
 
 ![image](https://github.com/agungbesti/German_Credit_Risk/assets/35904444/2136066f-2473-4518-9655-2e645bf3704f)
@@ -212,11 +212,113 @@ Fitur - fitur yang memiliki korelasi yang signifikan terhadap Risk:
 - Credit_category
 - Duration_category
 
-## Data Preparation
+# Data Preparation
+---
+## Proses Yang dilakukan
+--- 
+- Proses data preparation dilakukan melalui langkah-langkah, yaitu sebagai berikut: Melakukan load data pada google colaboratory, kemudian melakukan analisis awal terkait variabel yang tidak relevan untuk diproses lebih lanjut. Selanjutnya, memahami makna-makna variabel dengan menerapkan Exploratory Data Analysis dan mengatasi data yang masih kosong, membuat variabel baru dari data numerik seperti fitur age, duration dan amount. Kemudian melakukan visualisasi data untuk mencari outlier dengan menggunakan boxplot dari library seaborn. Selanjutnya, melakukan tahapan univariate analysis, multivariative analysis dan deskritif analysis. Selanjutnya membuat correlation matrix antar fitur numerik, kemudian memlihat korelasi yang signifikan menggunakan chi squared tes antara fitur risk dan kategori, lalu membuang variabel yang memiliki korelasi rendah atau tidak memiliki korelasi yang signifikan terhadap variabel risk.
+- Menerapkan One Hot Encoding pada data Categorical dengan menggunakan pandas library pada fungsi pd.get_dummies()
+- Menerapkan Oversampling SMOTE pada data yang imbalance
+- Membagi data set antara training dan testing dengan library sklearn dengan fungsi train_test_split() dengan perbandingan 80:20 sehingga memiliki 1120 data train dan 280 data testing
+
+## Alasan Penggunaan
+--- 
+- Melihat korelasi antara fitur numerik ataupun fitur kategorikal terhadap variabel risk, memberikan pemahaman bahwa fitur apa saja yang memiliki korelasi yang signifikan terhadap variabel risk.
+- Pembuatan fitur baru dari data yang ada dapat meningkatkan akurasi model yang dihasilkan dengan pengkategorian dari data numerik.
+- One-hot-encoding digunakan untuk mengubah variabel kategorikal menjadi representasi numerik yang dapat digunakan dalam model machine learning. serta dapat meningkatan performa model dalam melakukan klasifikasi karena hanya menggunakan nilai biner. Hal ini sangat diperlukan karena algoritma machine learning umumnya membutuhkan data numerik sebagai input.
+- Penggunaan SMOTE diterapkan dalam rangka menangani ketidak seimbangan kelas. Teknik ini mensintesis sampel baru dari kelas minoritas untuk menyeimbangkan dataset dengan cara sampling ulang sampel kelas minoritas.
+- Membagi dataset kedalam bentuk training dan testing adalah agar model dapat di evaluasi nantinya. Selain itu, pembagian ini dapat juga untuk mendeteksi apakah model mengalami overfitting jika model memiliki performa yang sangat baik pada data pelatihan tetapi performa yang buruk pada data pengujian.
+
+# Modeling
+---
+Pada proyek ini akan menggunakan model Linear Discriminant Analysis, LightGBM dan XGBoost berdasarkan hasil dari perbandingan top tiga (3) algoritma yang dijalankan menggunakan library scikit-learn.
+![image](https://github.com/agungbesti/German_Credit_Risk/assets/35904444/350cab0c-8783-40b2-9972-7bbcb8870c6b)
+- Model machine learning yang digunakan adalah Linear Discriminant Analysis, LightGBM dan XGBoost algorithm.
+- Linear Discriminant Analysis (LDA) merupakan salah satu metode yang digunakan untuk mengelompokkan data ke dalam beberapa kelas. Penentuan pengelompokan didasarkan pada garis batas (garis lurus) yang diperoleh dari persamaan linear.
+- Untuk menggunakan model LDA menggunakan function LinearDiscriminantAnalysis yang merupakan bagian dari library sklearn.discriminant_analysis.
+- Parameter yang digunakan dalam model LDA, yaitu sebagai berikut:
+    -  solver = Pemecah untuk digunakan, dalam hal ini menggunakan solusi kuadrat terkecil yang dapat dikombinasikan dengan penyusutan atau penaksir kovarians khusus, yaitu lsqr
+    -  store_covarience = Secara eksplisit hitung matriks kovarians dalam kelas yang diberi bobot ketika pemecahnya, yaitu True
+    -  tol = Ambang batas absolut untuk nilai singular X yang dianggap signifikan, dalam hal ini digunakan 0.01
+- Untuk mendapatkan hasil yang terbaik selain menggunakan LDA, digunakan algoritma LightGBM sebagai algoritma pembanding
+- LightGBM mengimplementasikan algoritma Gradient Boosting Decision Tree (GBDT) konvensional dengan penambahan dua teknik baru: Gradient based One-Side Sampling (GOSS) dan Exclusive Feature Bundling (EFB)
+- Penggunaan model LightGBM menggunakan function LGBMClassifier yang merupakan bagian dari library lightgbm.
+- Parameter yang digunakan dalam model LightGBM, yaitu sebagai berikut:
+    - learning_rate = parameter yang digunakan untuk mengatur proses training dari algoritma ini. Pada model ini, paramater di isi 1.0.
+    - n_estimators = jumlah pohon keputusan (decision tree) yang akan dibuat pada model yang digunakan. Pada model ini n_estimators yang di buat, yaitu 1000.
+    - max_depth = maksimal kedalaman dari decision tree yang akan dibuat. Pada model ini kedalaman yang dibuat sampai 5 level.
+- Selain menggunakan LDA dan LightGBM, digunakan algoritma yang terakhir, yaitu XGBoost algorithm untuk melihat mana performa algoritma yang terbaik dalam  menghasilkan klasifikasi risiko gagal bayar peminjaman
+- XGBoost adalah algoritma pohon yang ditingkatkan gradien. Peningkatan gradien adalah algoritma pembelajaran yang diawasi, yang mencoba memprediksi variabel target secara akurat dengan menggabungkan perkiraan serangkaian model yang lebih sederhana dan lebih lemah.
+- Penggunaan model XGBoost menggunakan function XGBClassifier yang merupakan bagian dari library xgboost.
+
+## Kelebihan dan kekurangan masing-masing algoritma
+--- 
+- Setelah melakukan training menggunakan LDA, LightGBM dan XGBoost Algoritma, maka dapat disimpulkan kelebihan dan kekurangan masing-masing, yaitu sebagai berikut:
+    - Kelebihan algoritma LDA, yaitu dapat menghasilkan klasifikasi yang seimbang antar kelas.
+    - Waktu training yang digunakan pada pembuatan model LDA jauh lebih cepat dibandingkan yang lainnya.
+    - Kekurangan LDA , yaitu untuk mendapatkan klasifikasi yang akurat, melakukan tuning parameter saja tidak mampu mendapatkan akurasi yang lebih tinggi tapi diperlukan pengolahan data atau feature engineering yang tepat.
+    - Kelebihan LightGBM algoritma, yaitu untuk proses hypertuning parameter dilakukan lebih cepat dibandingkan algoritma Xgboost.
+    - Kekurangan LightGBM algoritma, yaitu LightGBM tidak cukup baik dalam melakukan klasifikasi terhadap kelas negatif atau risiko buruk
+    - Kelebihan XGBoost algoritma, yaitu akurasi jauh lebih stabil dibandingkan algoritma yang lainnya.
+    - Berdasarkan hasil training model, maka ditetapkan bahwa algoritma yang terbaik diantara LDA, LightGBM dan XGBoost Algoritma dalam mengklasifikasi tingkat risiko, yaitu algoritma XGBoost. Alasannya, karena nilai Akurasi yang dihasilkan oleh XGBoost lebih baik dari Algoritma yang lainnya.
+
+# Evaluation
+---
+## Confusion Matrix
+---
+Confusion matrix adalah sebuah tabel yang sering digunakan untuk mengukur kinerja dari model klasifikasi di machine learning. Tabel ini menggambarkan lebih detail tentang jumlah data yang diklasifikasikan dengan benar maupun salah.
+
+Ada empat nilai yang dihasilkan di dalam tabel confusion matrix, di antaranya **True Positive** (TP), **False Positive** (FP), **False Negative** (FN), dan **True Negative** (TN). Ilustrasi tabel confusion matrix dapat dilihat pada Gambar berikut.
+![image](https://github.com/agungbesti/German_Credit_Risk/assets/35904444/8a16a5f1-836a-48d8-b27b-1b1c7f45c249)
+**True Positive (TP)** : Jumlah data yang bernilai Positif dan diprediksi benar sebagai Positif.
+Jika kita telah mengklasifikasikan tingkat risiko baik, dan ternyata risikonya baik.
+
+**False Positive (FP)** : Jumlah data yang bernilai Negatif tetapi diprediksi sebagai Positif.
+Jika kita telah mengklasifikasikan tingkat risiko baik, dan ternyata risikonya buruk.
+
+**False Negative (FN)** : Jumlah data yang bernilai Positif tetapi diprediksi sebagai Negatif.
+Jika kita telah mengklasifikasikan tingkat risiko buruk, dan ternyata risikonya baik.
+
+**True Negative (TN)** : Jumlah data yang bernilai Negatif dan diprediksi benar sebagai Negatif.
+Jika kita telah mengklasifikasikan tingkat risiko buruk, dan ternyata risikonya buruk.
+
+### Accuracy
+---
+Nilai akurasi didapatkan dari jumlah data bernilai positif yang diprediksi positif dan data bernilai negatif yang diprediksi negatif dibagi dengan jumlah seluruh data di dalam dataset.
+
+Rumus Accuracy = $$\frac{TP+TN}{TP+TN+FP+FN}$$
+
+### Precision
+---
+Precision adalah peluang kasus yang diprediksi positif yang pada kenyataannya termasuk kasus kategori positif.
+
+Rumus Precision = $$\frac{TP}{TP+FP}$$
+
+### Recall
+---
+Recall adalah peluang kasus dengan kategori positif yang dengan tepat diprediksi positif.
+Rumus Recall = $$\frac{TP}{TP+FN}$$
+
+### F1
+---
+Nilai F1-Score atau dikenal juga dengan nama F-Measure didapatkan dari hasil Precision dan Recall antara kategori hasil prediksi dengan kategori sebenarnya.
+Rumus F1-score = $$\frac{2*Precision*Recall}{Precision+Recall}$$ = $$\frac{2*TP}{2*TP+FP+FN}$$
+
+Tabel 2: Hasil Evaluasi Model dengan Menggunakan Confusion Matrix pada Data Testing
 
 
-## Modeling
+Model                           | Precision     | Recall | f1-score | Accuracy  |
+--------------------------------| --------------|--------|----------|-----------|
+Linear Discriminat Analysisis   |       83%     | 83%    | 83%      |   82%     |
+LightGBM                        |       85%     | 82%    | 82%      |   82%     |
+XGBoost                         |       92%     | 91%    | 91%      |   91%     |
 
+- Metrik yang digunakan untuk mengukur kinerja hasil model adalah Confusion Matrix.
+- Berdasarkan pada data testing, bahwa model XGBoost menghasilan nilai tingkat akurasi sebesar 91%, hal ini menandakan bahwa model yang telah dibangun sudah cukup baik (good fit).
+- Berdasarkan hasil training model, maka ditetapkan bahwa algoritma yang terbaik diantara Linear Discriminat Analysisis, LightGBM dan XGBoost Algoritma dalam mengklasifikasikan tingkat risiko peminjaman, yaitu algoritma XGBoost.
+Alasannya, karena nilai akurasi yang dihasilkan oleh XGBoost lebih baik dari algoritma yang lainnya.
 
-## Evaluation
-
+### Kesimpulan
+---
+- Berdasarkan hasil training dan test, maka algoritma yang terbaik adalah XGBoost, alasannya karena nilai akurasi yang dihasilkan oleh XGBoost lebih baik dari algoritma yang lainnya.
+- Model yang dibangun sudah cukup baik dalam melakukan klasifikasi, alasannya karena nilai akurasi telah mencapai lebih dari 90%
