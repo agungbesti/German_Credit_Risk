@@ -328,6 +328,10 @@ Alasannya, karena nilai akurasi yang dihasilkan oleh XGBoost lebih baik dari alg
 ### Referensi
 ---
 [1] [Transparent Decision Support System for Credit Risk Evaluation: An automated credit approval system](https://ieeexplore.ieee.org/document/9242905) 
+
 [2] [Credit Risk Assessment for Rural Credit Cooperatives based on Improved Neural Network](https://ieeexplore.ieee.org/document/8104372)
+
 [3] [Theoretical and Applied Aspects of Bank Credit Risks Minimization](https://ieeexplore.ieee.org/document/9468056)
+
 [4] [KLASIFIKASI KELOMPOK UMUR MANUSIA BERDASARKAN ANALISIS DIMENSIFRAKTAL BOX COUNTING DARI CITRA WAJAH DENGAN DETEKSI TEPI CANNY](https://ejournal.unesa.ac.id/index.php/mathunesa/article/view/19398/17715)
+
