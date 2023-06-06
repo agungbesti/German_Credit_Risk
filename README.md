@@ -244,12 +244,18 @@ Pada proyek ini akan menggunakan model Linear Discriminant Analysis, LightGBM da
 - LightGBM mengimplementasikan algoritma Gradient Boosting Decision Tree (GBDT) konvensional dengan penambahan dua teknik baru: Gradient based One-Side Sampling (GOSS) dan Exclusive Feature Bundling (EFB)
 - Penggunaan model LightGBM menggunakan function LGBMClassifier yang merupakan bagian dari library lightgbm.
 - Parameter yang digunakan dalam model LightGBM, yaitu sebagai berikut:
-    - learning_rate = parameter yang digunakan untuk mengatur proses training dari algoritma ini. Pada model ini, paramater di isi 1.0.
-    - n_estimators = jumlah pohon keputusan (decision tree) yang akan dibuat pada model yang digunakan. Pada model ini n_estimators yang di buat, yaitu 1000.
+    - learning_rate = parameter yang digunakan untuk mengatur proses training dari algoritma ini. Pada model ini, paramater di isi 0.03.
+    - n_estimators = jumlah pohon keputusan (decision tree) yang akan dibuat pada model yang digunakan. Pada model ini n_estimators yang di buat, yaitu 500.
     - max_depth = maksimal kedalaman dari decision tree yang akan dibuat. Pada model ini kedalaman yang dibuat sampai 5 level.
 - Selain menggunakan LDA dan LightGBM, digunakan algoritma yang terakhir, yaitu XGBoost algorithm untuk melihat mana performa algoritma yang terbaik dalam  menghasilkan klasifikasi risiko gagal bayar peminjaman
 - XGBoost adalah algoritma pohon yang ditingkatkan gradien. Peningkatan gradien adalah algoritma pembelajaran yang diawasi, yang mencoba memprediksi variabel target secara akurat dengan menggabungkan perkiraan serangkaian model yang lebih sederhana dan lebih lemah.
 - Penggunaan model XGBoost menggunakan function XGBClassifier yang merupakan bagian dari library xgboost.
+- Parameter yang digunakan dalam model XGBoost, yaitu sebagai berikut:
+    - learning_rate = parameter yang digunakan untuk mengatur proses training dari algoritma ini. Pada model ini, paramater di isi 0.1.
+    - max_depth = maksimal kedalaman dari decision tree yang akan dibuat. Pada model ini kedalaman yang dibuat sampai 3 level.
+    - min_samples_split = jumlah minimum sampel yang diperlukan untuk membagi simpul internal. Pada model ini, parameter di isi 0.1.
+    - n_estimators = jumlah pohon keputusan (decision tree) yang akan dibuat pada model yang digunakan. Pada model ini n_estimators yang di buat, yaitu 100.
+    - sub_sample = rasio subsampel dari instance pelatihan. Pada model ini subsample yang digunakan 0.5 berarti XGBoost akan secara acak mengambil sampel setengah dari data pelatihan sebelum menanam pohon dan ini akan mencegah overfitting.
 
 ## Kelebihan dan kekurangan masing-masing algoritma
 --- 
@@ -311,9 +317,9 @@ Tabel 2: Hasil Evaluasi Model dengan Menggunakan Confusion Matrix pada Data Test
 
 Model                           | Precision     | Recall | f1-score | Accuracy  |
 --------------------------------| --------------|--------|----------|-----------|
-Linear Discriminat Analysisis   |       83%     | 83%    | 83%      |   82%     |
-LightGBM                        |       85%     | 82%    | 82%      |   82%     |
-XGBoost                         |       92%     | 91%    | 91%      |   91%     |
+Linear Discriminat Analysisis   |       83%     | 82%    | 82%      |   82%     |
+LightGBM                        |       88%     | 86%    | 86%      |   86%     |
+XGBoost                         |       93%     | 91%    | 91%      |   91%     |
 
 - Metrik yang digunakan untuk mengukur kinerja hasil model adalah Confusion Matrix.
 - Berdasarkan pada data testing, bahwa model XGBoost menghasilan nilai tingkat akurasi sebesar 91%, hal ini menandakan bahwa model yang telah dibangun sudah cukup baik (good fit).
