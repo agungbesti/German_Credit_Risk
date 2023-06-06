@@ -305,10 +305,11 @@ Rumus Recall = $$\frac{TP}{TP+FN}$$
 ### F1
 ---
 Nilai F1-Score atau dikenal juga dengan nama F-Measure didapatkan dari hasil Precision dan Recall antara kategori hasil prediksi dengan kategori sebenarnya.
+
 Rumus F1-score = $$\frac{2*Precision*Recall}{Precision+Recall}$$ = $$\frac{2*TP}{2*TP+FP+FN}$$
 
-Tabel 3: Hasil Evaluasi Model dengan Menggunakan Confusion Matrix pada Data Testing
 
+Tabel 3: Hasil Evaluasi Model dengan Menggunakan Confusion Matrix pada Data Testing
 
 Model                           | Precision     | Recall | f1-score | Accuracy  |
 --------------------------------| --------------|--------|----------|-----------|
