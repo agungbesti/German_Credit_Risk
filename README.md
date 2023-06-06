@@ -309,8 +309,10 @@ Nilai F1-Score atau dikenal juga dengan nama F-Measure didapatkan dari hasil Pre
 Rumus F1-score = $$\frac{2*Precision*Recall}{Precision+Recall}$$ = $$\frac{2*TP}{2*TP+FP+FN}$$
 
 
-Tabel 3: Hasil Evaluasi Model dengan Menggunakan Confusion Matrix pada Data Testing
 
+
+
+Tabel 3: Hasil Evaluasi Model dengan Menggunakan Confusion Matrix pada Data Testing
 Model                           | Precision     | Recall | f1-score | Accuracy  |
 --------------------------------| --------------|--------|----------|-----------|
 Linear Discriminat Analysisis   |       83%     | 82%    | 82%      |   82%     |
