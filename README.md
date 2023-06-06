@@ -18,13 +18,6 @@ Alasan penting yang mendasari bahwa permasalahan kredit gagal bayar, yaitu sebag
 - Untuk menyelesaikan masalah tersebut, maka akan dibuat aplikasi yang dapat mengklasifikasi tingkat kegagalan pembayaran (dalam kasus ini sebagai pedoman atau acuan dalam menentukan apakah yang melakukan peminjaman berisiko tinggi atau rendah) dalam melakukan pelunasan.
 - Aplikasi ini akan memanfaatkan teknologi Machine Learning serta bahasa pemrograman Python dalam membuat klasifikasi tingkat risiko untuk menjadi bahan keputusan bagi pihak Bank dalam memberikan sebuah **Approval**.
 
-## Hasil Riset Terkait:
----
-- [Transparent Decision Support System for Credit Risk Evaluation: An automated credit approval system](https://ieeexplore.ieee.org/document/9242905) 
-- [Credit Risk Assessment for Rural Credit Cooperatives based on Improved Neural Network](https://ieeexplore.ieee.org/document/8104372)
-- [Theoretical and Applied Aspects of Bank Credit Risks Minimization](https://ieeexplore.ieee.org/document/9468056)
-
-
 # Business Understanding
 ---
 Dari latar belakang yang telah dijelaskan sebelumnya, maka Bank X memerlukan suatu aplikasi atau program yang mampu menentukan apakah peminjam memiliki risiko tinggi untuk gagal bayar.
@@ -36,15 +29,15 @@ Berdasarkan penjelasan yang telah disampaikan sebelumnya, maka problem statement
 - Bagaimana persebaran data dari setiap atributenya berdasarkan tingkat risikonya?
 - Bagaimana hubungan fitur kategorikal dengan risiko kegagalan pembayaran ?
 - Bagaimana korelasi antara tingkat risiko dengan fitur yang lainnya ?
-- Bagaimana hasil dari penerapan model machine learning yang dilakukan?
-- Apa saja tiga (3) model algoritma yang memberikan akurasi yang paling tinggi?
 - Model algoritma apa yang mampu memberikan akurasi paling tinggi dibandingkan yang lainnya?
+- Bagaimana hasil dari penerapan model machine learning yang dilakukan?
  
 
 ## Goals
 ---
 Tujuan yang ingin dicapai dari pembuatan aplikasi klasifikasi kegagalan bayar di Bank Jerman ini, yaitu sebagai berikut:
 - Mengetahui faktor-faktor yang mempengaruhi kegagalan bayar.
+- Mengetahui persebaran data dari setiap atribute berdasarkan tingkat risikonya.
 - Mengetahui hubungan fitur kategorikal dengan risiko kegagalan pembayaran.
 - Mengetahui korelasi antara tingkat risiko dengan fitur yang lainnya.
 - Mengetahui model algoritma yang mampu memberikan akurasi paling tinggi.
@@ -62,6 +55,8 @@ Data yang digunakan adalah dataset yang bersumber dari situs Kaggle yang berisi 
 ---
 Ada pun sample data yang bisa dilihat seperti dibawah ini.
 
+Tabel 1 : Sample Data German Credit Risk
+
 |#| Age | Sex  | Job | Housing | Saving_accounts | Checking_account | Credit_amount | Duration | Purpose | Risk |
 |-|-------------------------------|--------|-----------------------|------------------------|----------------------|-------------|--------------|--------------|-----------|----------|
 |1|67 | male| 2 | own | NaN| little | 1169| 6 | radio/TV | good|
@@ -70,7 +65,7 @@ Ada pun sample data yang bisa dilihat seperti dibawah ini.
 |4|45 | male| 2 | free | little| little | 7882| 42 | furniture/equipment | good|
 |5|53 | male| 2 | free | little| little | 4870| 24 | car | bad|
 
-###### Tabel 1 : Sample Data German Credit Risk
+
 Untuk sample data bisa dilihat seperti pada Tabel 1.
 ## Variabel-variabel yang terdapat pada dataset German Credit Risk adalah sebagai berikut:
 ---
@@ -97,6 +92,8 @@ Untuk memahami dataset, langkah-langkah yang dilakukan, yaitu sebagai berikut:
 
 ### Hasil Visualisasi Exploratory Data Analysis
 ---
+Tabel 2 : Melihat kolom dan tipe data pada dataset 
+
 |   #   |    Column     | Non-Null Count |  Dtype  |
 |-------|--------------|----------------|---------|
 |   0   |     Age     |    1000        | int64  |
@@ -109,7 +106,7 @@ Untuk memahami dataset, langkah-langkah yang dilakukan, yaitu sebagai berikut:
 |   7   | Duration |    1000        | int64   |
 |   8   |  Purpose   |    1000        | object   |
 |   9   |     Risk      |    1000        | object   |
-###### Tabel 2 : Melihat kolom dan tipe data pada dataset 
+
 Pada Tabel 2 dapat dilihat bahwa data memiliki 6 kolom numerik atau angka sedangkan sisanya non-numerik atau kategorikal.
 
 ![image](https://github.com/agungbesti/German_Credit_Risk/assets/35904444/75294c2b-9f6b-457c-93ed-4aaccaf971ff)
@@ -200,9 +197,7 @@ Pada Gambar 21 dapat dilihat bahwa **lebih banyak pria** mengambil pinjaman untu
 ###### Gambar 22: Correlation Matrix untuk Fitur Numerik
 Pada Gambar 22 dapat dilihat bahwa untuk setiap fitur memiliki korelasi positif dan korelasi negatif yang tidak terlalu tinggi, dimana fitur yang paling berpengaruh yaitu **Job, Duration dan Credit_amount**. Sedangkan pada **fitur Age, memiliki korelasi yang paling kecil diantara fitur yang lainnya**.
 
-![image](https://github.com/agungbesti/German_Credit_Risk/assets/35904444/2136066f-2473-4518-9655-2e645bf3704f)
-###### Gambar 23: Chi Squared Tes antara Fitur Risk dan Kategori
-Pada Gambar 23 dapat dilihat bahwa ada beberapa fitur kategorikal yang memiliki korelasi yang signifikan terhadap risiko kegagalan bayar.
+Pada pengujian chi square test dapat disimpulkan bahwa ada beberapa fitur kategorikal yang memiliki korelasi yang signifikan terhadap risiko kegagalan bayar.
 Fitur - fitur yang memiliki korelasi yang signifikan terhadap Risk:
 - Sex
 - Housing
@@ -312,7 +307,7 @@ Rumus Recall = $$\frac{TP}{TP+FN}$$
 Nilai F1-Score atau dikenal juga dengan nama F-Measure didapatkan dari hasil Precision dan Recall antara kategori hasil prediksi dengan kategori sebenarnya.
 Rumus F1-score = $$\frac{2*Precision*Recall}{Precision+Recall}$$ = $$\frac{2*TP}{2*TP+FP+FN}$$
 
-Tabel 2: Hasil Evaluasi Model dengan Menggunakan Confusion Matrix pada Data Testing
+Tabel 3: Hasil Evaluasi Model dengan Menggunakan Confusion Matrix pada Data Testing
 
 
 Model                           | Precision     | Recall | f1-score | Accuracy  |
@@ -331,7 +326,7 @@ Alasannya, karena nilai akurasi yang dihasilkan oleh XGBoost lebih baik dari alg
 - Berdasarkan hasil training dan test, maka algoritma yang terbaik adalah XGBoost, alasannya karena nilai akurasi yang dihasilkan oleh XGBoost lebih baik dari algoritma yang lainnya.
 - Model yang dibangun sudah cukup baik dalam melakukan klasifikasi, alasannya karena nilai akurasi telah mencapai lebih dari 90%
 
-### Referensi
+### Daftar Pustaka
 ---
 [1] [Transparent Decision Support System for Credit Risk Evaluation: An automated credit approval system](https://ieeexplore.ieee.org/document/9242905) 
 
